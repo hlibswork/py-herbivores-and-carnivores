@@ -8,6 +8,7 @@ class Animal:
         self.name = name
         self.health = health
         self.hidden = False
+        self.alive = Animal.alive
         Animal.alive.append(self)
 
     def __repr__(self) -> str:
@@ -21,10 +22,11 @@ class Herbivore(Animal):
 
 
 class Carnivore(Animal):
-    @staticmethod
-    def bite(herb: Herbivore | Carnivore) -> None:
+    def bite(self, herb: Herbivore | Carnivore) -> None:
         if isinstance(herb, Herbivore)\
                 and herb.hidden is False:
             herb.health -= 50
         if herb.health <= 0:
             Animal.alive.remove(herb)
+        else:
+            print(f"{herb} is neither a Herbivore nor a Carnivore. Cannot bite.")
